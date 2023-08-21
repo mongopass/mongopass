@@ -20,12 +20,20 @@ Please copy the `.env.example` file to `.env` and fill the variables with your o
 cp .env.example .env
 ```
 
-## To run the app
+## To install and run the app
 
 ```
 python -m venv venv
 source ./venv/Scripts/activate
 pip install pymongo bcrypt python-decouple
+python ./do.py
+deactivate
+```
+
+## To run the app
+
+```
+source ./venv/Scripts/activate
 python ./do.py
 deactivate
 ```
