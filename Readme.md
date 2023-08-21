@@ -47,7 +47,7 @@ cp .env.example .env
 python -m venv venv
 source ./venv/Scripts/activate
 pip install pymongo bcrypt python-decouple
-python ./do.py
+python ./gui.py
 deactivate
 ```
 
@@ -55,7 +55,7 @@ deactivate
 
 ```
 source ./venv/Scripts/activate
-python ./do.py
+python ./gui.py
 deactivate
 ```
 
