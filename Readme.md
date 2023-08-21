@@ -1,3 +1,5 @@
+![MongoPass Banner](.repoassets/BannerApp.png)
+
 # This is Mongo with Python app called MongoPass
 
 ## The MongoPass CLI app
@@ -23,6 +25,8 @@ pip install pymongo bcrypt python-decouple
 python ./do.py
 deactivate
 ```
+
+![Mongo Pass](.repoassets/IconApp.png)
 
 ## Pylar AI Creative ML Free License
 
