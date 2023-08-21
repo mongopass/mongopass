@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, simpledialog, messagebox
 import pymongo
 import bcrypt
 from decouple import config
@@ -15,19 +15,15 @@ passwords = db.passwords
 current_user_id = None
 
 def register():
-    global current_user_id
-
     username = entry_username.get()
     password = entry_password.get()
-
     user = app_users.find_one({"username": username})
     if user:
         messagebox.showerror("Error", "Username already exists!")
         return
     
     hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    inserted = app_users.insert_one({"username": username, "password": hashed})
-    current_user_id = inserted.inserted_id
+    app_users.insert_one({"username": username, "password": hashed})
     messagebox.showinfo("Success", "Registration successful!")
 
 def login():
@@ -35,77 +31,86 @@ def login():
 
     username = entry_username.get()
     password = entry_password.get()
-
     user = app_users.find_one({"username": username})
-    if not user:
-        messagebox.showerror("Error", "User not found!")
+    if not user or not bcrypt.checkpw(password.encode('utf-8'), user["password"]):
+        messagebox.showerror("Error", "Invalid credentials!")
         return
-    
-    if bcrypt.checkpw(password.encode('utf-8'), user["password"]):
-        current_user_id = user['_id']
-        messagebox.showinfo("Success", "Logged in successfully!")
-    else:
-        messagebox.showerror("Error", "Password is incorrect!")
 
-def save_password():
-    platform_link = entry_platform.get()
+    current_user_id = user['_id']
+    login_frame.pack_forget()
+    password_manager_frame.pack()
+
+def add_password():
+    platform_link = simpledialog.askstring("Platform Link", "Enter platform link (e.g., https://github.com):")
+    if not platform_link:
+        return
+
     platform_name = urlparse(platform_link).netloc.split('.')[0]
-    username = entry_platform_username.get()
-    password = entry_platform_password.get()
-    tags = entry_tags.get().split(",")[:3]  # Only get up to 3 tags
-
-    if not current_user_id:
-        messagebox.showerror("Error", "Please log in first!")
-        return
-
+    platform_username = simpledialog.askstring("Platform Username", "Enter username:")
+    platform_password = simpledialog.askstring("Platform Password", "Enter password:", show="*")
+    tags = simpledialog.askstring("Tags", "Enter comma-separated tags (up to 3):").split(",")[:3]
+    
     passwords.insert_one({
         "platform": platform_name,
         "link": platform_link,
-        "username": username,
-        "password": password,
+        "username": platform_username,
+        "password": platform_password,
         "tags": tags,
         "user_id": current_user_id
     })
-    messagebox.showinfo("Success", "Password saved successfully!")
+    display_passwords()
 
-# Create the main window
+def display_passwords():
+    for record in password_table.get_children():
+        password_table.delete(record)
+    
+    for pwd in passwords.find({"user_id": current_user_id}):
+        password_table.insert("", "end", values=(pwd["platform"], pwd["username"], "******", ",".join(pwd["tags"])), tags=('password', pwd["password"]))
+
+def show_password(event):
+    item = password_table.identify('item', event.x, event.y)
+    password = password_table.item(item, "tags")[1]
+    messagebox.showinfo("Password", f"Password: {password}")
+
+def logout():
+    global current_user_id
+    current_user_id = None
+    password_manager_frame.pack_forget()
+    login_frame.pack()
+
 app = tk.Tk()
-app.title("MongoDB Password App")
+app.title("Password Manager")
 
-# User Registration and Login
-tk.Label(app, text="App Username").pack(pady=10)
-entry_username = tk.Entry(app)
-entry_username.pack(pady=5)
+login_frame = ttk.Frame(app)
+login_frame.pack(padx=10, pady=10)
 
-tk.Label(app, text="App Password").pack(pady=10)
-entry_password = tk.Entry(app, show="*")
-entry_password.pack(pady=5)
+ttk.Label(login_frame, text="Username").grid(row=0, column=0, pady=5)
+entry_username = ttk.Entry(login_frame)
+entry_username.grid(row=0, column=1, pady=5)
 
-btn_register = tk.Button(app, text="Register", command=register)
-btn_register.pack(pady=10)
+ttk.Label(login_frame, text="Password").grid(row=1, column=0, pady=5)
+entry_password = ttk.Entry(login_frame, show="*")
+entry_password.grid(row=1, column=1, pady=5)
 
-btn_login = tk.Button(app, text="Login", command=login)
-btn_login.pack(pady=10)
+ttk.Button(login_frame, text="Login", command=login).grid(row=2, column=0, pady=10)
+ttk.Button(login_frame, text="Sign Up", command=register).grid(row=2, column=1, pady=10)
 
-# Save Passwords for Platforms
-tk.Label(app, text="Platform Link (e.g., https://github.com)").pack(pady=10)
-entry_platform = tk.Entry(app)
-entry_platform.pack(pady=5)
+password_manager_frame = ttk.Frame(app)
+search_bar = ttk.Entry(password_manager_frame)
+search_bar.pack(pady=10)
 
-tk.Label(app, text="Platform Username").pack(pady=10)
-entry_platform_username = tk.Entry(app)
-entry_platform_username.pack(pady=5)
+password_table = ttk.Treeview(password_manager_frame, columns=("Platform", "Username", "Password", "Tags"), show="headings")
+password_table.heading("Platform", text="Platform")
+password_table.heading("Username", text="Username")
+password_table.heading("Password", text="Password")
+password_table.heading("Tags", text="Tags")
+password_table.tag_bind('password', '<Double-1>', show_password)
+password_table.pack(pady=20)
 
-tk.Label(app, text="Platform Password").pack(pady=10)
-entry_platform_password = tk.Entry(app, show="*")
-entry_platform_password.pack(pady=5)
+add_button = ttk.Button(password_manager_frame, text="+", command=add_password)
+add_button.pack(side="left", padx=10)
 
-tk.Label(app, text="Tags (comma-separated)").pack(pady=10)
-entry_tags = tk.Entry(app)
-entry_tags.pack(pady=5)
+logout_button = ttk.Button(password_manager_frame, text="Logout", command=logout)
+logout_button.pack(side="right", padx=10)
 
-btn_save_password = tk.Button(app, text="Save Password", command=save_password)
-btn_save_password.pack(pady=10)
-
-# Start the GUI loop
 app.mainloop()

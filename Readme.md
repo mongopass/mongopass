@@ -1,23 +1,38 @@
 <div align="center">
-    <img src=".githubages/BannerApp.png" alt="MongoPass Banner">
+    <img src=".githubages/assets/images/Marketing/MongoPassBanner.jpg" alt="MongoPass Banner">
 </div>
 
 # This is Mongo with Python app called MongoPass
 
-## The MongoPass CLI app
-
-![MongoPass Screenshot](.githubages/screenshot.png)
-
 ## At Compass
 
-![Alt text](.githubages/screenshot_compass.png)
+![CompassAfterAddAPassword](.githubages/assets/images/Compass/CompassAfterAddAPassword.jpg)
+![CompassPasswordRegistry](.githubages/assets/images/Compass/CompassPasswordRegistry.jpg)
+
+## CLI in action
+
+![CLITheMenu](.githubages/assets/images/CLI/CLITheMenu.jpg)
+![CLISignUp](.githubages/assets/images/CLI/CLISignUp.jpg)
+![CLISuccessfullLogin](.githubages/assets/images/CLI/CLISuccessfullLogin.jpg)
+![CLIAfterLogin](.githubages/assets/images/CLI/CLIAfterLogin.jpg)
+![CLINewPassword](.githubages/assets/images/CLI/CLINewPassword.jpg)
+![CLIShowPasswords](.githubages/assets/images/CLI/CLIShowPasswords.jpg)
+![CLIShowPasswordByPlatform](.githubages/assets/images/CLI/CLIShowPasswordByPlatform.jpg)
 
 ## GUI In action
 
-![GUI APP](.githubages/Gui-App.png)
-![Create](.githubages/Gui-Create.png)
-![Search](.githubages/Gui-Check.png)
-![Error](.githubages/Gui-Error.png)
+![SignUp](.githubages/assets/images/GUI/SignUp.jpg)
+![RegisterSuccess](.githubages/assets/images/GUI/RegisterSuccess.jpg)
+![NewUser](.githubages/assets/images/GUI/NewUser.jpg)
+![ErrorExample](.githubages/assets/images/GUI/ErrorExample.jpg)
+![MongoPass](.githubages/assets/images/GUI/MongoPass.jpg)
+![AddNew](.githubages/assets/images/GUI/AddNew.jpg)
+![AddPlatform](.githubages/assets/images/GUI/AddPlatform.jpg)
+![AddUser](.githubages/assets/images/GUI/AddUser.jpg)
+![AddPassword](.githubages/assets/images/GUI/AddPassword.jpg)
+![AddTags](.githubages/assets/images/GUI/AddTags.jpg)
+![AppWithAPassword](.githubages/assets/images/GUI/AppWithAPassword.jpg)
+
 ## First step, the .env
 
 Please copy the `.env.example` file to `.env` and fill the variables with your own values.
@@ -45,7 +60,7 @@ deactivate
 ```
 
 <div align="center">
-    <img src=".githubages/IconApp.png" alt="Mongo Pass">
+    <img src=".githubages/assets/images/Marketing/MongoPass.jpg" alt="Mongo Pass">
 </div>
 
 ## Pylar AI Creative ML Free License
