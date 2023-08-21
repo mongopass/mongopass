@@ -1,17 +1,23 @@
 <div align="center">
-    <img src=".repoassets/BannerApp.png" alt="MongoPass Banner">
+    <img src=".githubages/BannerApp.png" alt="MongoPass Banner">
 </div>
 
 # This is Mongo with Python app called MongoPass
 
 ## The MongoPass CLI app
 
-![MongoPass Screenshot](.repoassets/screenshot.png)
+![MongoPass Screenshot](.githubages/screenshot.png)
 
 ## At Compass
 
-![Alt text](.repoassets/screenshot_compass.png)
+![Alt text](.githubages/screenshot_compass.png)
 
+## GUI In action
+
+![GUI APP](.githubages/Gui-App.png)
+![Create](.githubages/Gui-Create.png)
+![Search](.githubages/Gui-Check.png)
+![Error](.githubages/Gui-Error.png)
 ## First step, the .env
 
 Please copy the `.env.example` file to `.env` and fill the variables with your own values.
@@ -39,7 +45,7 @@ deactivate
 ```
 
 <div align="center">
-    <img src=".repoassets/IconApp.png" alt="Mongo Pass">
+    <img src=".githubages/IconApp.png" alt="Mongo Pass">
 </div>
 
 ## Pylar AI Creative ML Free License
