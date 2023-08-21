@@ -12,6 +12,10 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #A6A385;
+            /* App's primary color */
+            color: #00684A;
+            /* App's secondary color */
         }
 
         .centered {
@@ -32,12 +36,49 @@
         }
 
         a {
-            color: #337ab7;
+            color: #00684A;
+            /* Link color to match secondary color */
             text-decoration: none;
         }
 
         a:hover {
             text-decoration: underline;
+        }
+
+        h1,
+        h2 {
+            border-bottom: 3px solid #00684A;
+            /* Add some styling to headers */
+            padding-bottom: 10px;
+        }
+
+        .terminal {
+            background-color: #1E1E1E;
+            color: #A6A385;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+
+        .terminal-content {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            border-bottom: 1px solid #00684A;
+        }
+
+        .terminal-input {
+            width: 100%;
+            border: none;
+            padding: 10px;
+            background-color: transparent;
+            color: #A6A385;
+            outline: none;
+            font-family: 'Courier New', monospace;
         }
     </style>
 </head>
@@ -50,8 +91,11 @@
 
     <h1>This is Mongo with Python app called MongoPass</h1>
 
-    <h2>The MongoPass CLI app</h2>
-    <img src=".repoassets/screenshot.png" alt="MongoPass Screenshot">
+    <h2>The MongoPass CLI</h2>
+    <div class="terminal" id="terminal">
+        <div class="terminal-content" id="terminal-content"></div>
+        <input type="text" class="terminal-input" id="terminal-input" autofocus />
+    </div>
 
     <h2>At Compass</h2>
     <img src=".repoassets/screenshot_compass.png" alt="Compass Screenshot">
@@ -91,8 +135,7 @@ deactivate
             </td>
         </tr>
     </table>
-
-
+    <script src="cli.js" defer></script>
 </body>
 
 </html>
