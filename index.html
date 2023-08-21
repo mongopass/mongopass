@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +12,23 @@
     <meta property="og:type" content="website" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #377C5E;
+        }
+
         nav {
-            transition: top 0.3s;
+            transition: top 0.3s, background-color 0.3s;
+            background-color: #FFB084;
+        }
+
+        nav a {
+            transition: color 0.3s;
+            color: #377C5E;
+            font-weight: 600;
+        }
+
+        nav a:hover, a:hover.text-green-600 {
+            color: #ffffff;
         }
 
         @media screen and (max-width: 1024px) {
@@ -22,119 +36,104 @@
                 display: none;
             }
         }
+        
+        .fade-in {
+            animation: fadeIn ease 1s;
+        }
+
+        @keyframes fadeIn {
+            0% {opacity:0;}
+            100% {opacity:1;}
+        }
     </style>
 </head>
-
-<body class="bg-green-200 text-gray-900 font-sans">
+<body class="fade-in font-sans">
     <script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@2.1.0/dist/iconify.min.js"></script>
-
-    <nav class="bg-green-700 p-4 shadow-md flex w-full text-white z-10 fixed top-0 left-0">
+    <nav class="p-4 shadow-md flex w-full text-white z-10 fixed top-0 left-0">
         <div class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-bold">
-                <img src=".githubages/assets/images/Marketing/MongoPass.jpg" alt="MongoPass Icon"
-                    class="inline-block bg-black rounded-md h-8 w-8 mr-2"> MongoPass</a>
+                <img src=".githubages/assets/images/Marketing/MongoPass.jpg" alt="MongoPass Icon" class="inline-block bg-black rounded-md h-8 w-8 mr-2"> MongoPass</a>
             <button id="navToggle" class="lg:hidden">
-                <span class="iconify" data-icon="eva:menu-outline" data-inline="false" data-width="24"
-                    data-height="24"></span>
+                <span class="iconify" data-icon="eva:menu-outline" data-inline="false" data-width="24" data-height="24"></span>
             </button>
             <div class="space-x-4 lg:flex" id="desktopNavLinks">
-                <a href="#home" class="hover:text-gray-200">Home</a>
-                <a href="#cli" class="hover:text-gray-200">CLI</a>
-                <a href="#compass" class="hover:text-gray-200">Compass</a>
-                <a href="#setup" class="hover:text-gray-200">Setup</a>
-                <a href="#license" class="hover:text-gray-200">License</a>
-                <a href="https://github.com/miguelgargallo/MongoPass" target="_blank"
-                    class="hover:text-gray-200">GitHub</a>
+                <a href="#home">Home</a>
+                <a href="#cli">CLI</a>
+                <a href="#compass">Compass</a>
+                <a href="#setup">Setup</a>
+                <a href="#license">License</a>
+                <a href="https://github.com/mongopass/mongopass" target="_blank">GitHub</a>
             </div>
         </div>
     </nav>
-
-    <div class="fixed top-0 right-0 h-full w-64 bg-green-800 overflow-y-auto transform translate-x-full transition-transform duration-300 ease-in-out"
-        id="mobileNavDrawer">
+    <div class="fixed top-0 right-0 h-full w-64 bg-green-800 overflow-y-auto transform translate-x-full transition-transform duration-300 ease-in-out" id="mobileNavDrawer">
         <button id="closeNavDrawer" class="text-white p-4">
-            <span class="iconify" data-icon="eva:close-outline" data-inline="false" data-width="24"
-                data-height="24"></span>
+            <span class="iconify" data-icon="eva:close-outline" data-inline="false" data-width="24" data-height="24"></span>
         </button>
         <div class="space-y-4 py-8 pr-8 pl-4">
-            <a href="#home" class="block hover:text-gray-200">Home</a>
-            <a href="#cli" class="block hover:text-gray-200">CLI</a>
-            <a href="#compass" class="block hover:text-gray-200">Compass</a>
-            <a href="#setup" class="block hover:text-gray-200">Setup</a>
-            <a href="#license" class="block hover:text-gray-200">License</a>
-            <a href="https://github.com/miguelgargallo/MongoPass" target="_blank"
-                class="block hover:text-gray-200">GitHub</a>
+            <a href="#home" class="block">Home</a>
+            <a href="#cli" class="block">CLI</a>
+            <a href="#compass" class="block">Compass</a>
+            <a href="#setup" class="block">Setup</a>
+            <a href="#license" class="block">License</a>
+            <a href="https://github.com/miguelgargallo/MongoPass" target="_blank" class="block">GitHub</a>
         </div>
     </div>
-
     <div class="container mx-auto mt-24 p-4 space-y-8">
         <section id="home" class="space-y-4">
             <div class="text-center">
-                <img src=".githubages/assets/images/Marketing/MongoPassBanner.jpg" alt="MongoPass Banner"
-                    class="mx-auto">
+                <img src=".githubages/assets/images/Marketing/MongoPassBanner.jpg" alt="MongoPass Banner" class="shadow-md rounded-md hover:shadow-xl mx-auto">
             </div>
-            <h1 class="text-3xl">This is Mongo with Python app called MongoPass</h1>
+            <h1 class="text-3xl text-white">This is Mongo with Python app called MongoPass</h1>
         </section>
         <section id="compass">
-            <h2 class="text-2xl">At Compass</h2>
+            <h2 class="text-2xl text-white">At Compass</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <img src=".githubages/assets/images/Compass/CompassAfterAddAPassword.jpg"
-                    alt="Compass After Add A Password">
-                <img src=".githubages/assets/images/Compass/CompassPasswordRegistry.jpg"
-                    alt="Compass Password Registry">
+                <img src=".githubages/assets/images/Compass/CompassAfterAddAPassword.jpg" alt="Compass After Add A Password" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/Compass/CompassPasswordRegistry.jpg" alt="Compass Password Registry" class="shadow-md rounded-md hover:shadow-xl">
             </div>
         </section>
-
         <section id="cli" class="space-y-4">
-            <h2 class="text-2xl">CLI in action</h2>
+            <h2 class="text-2xl text-white">CLI in action</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <img src=".githubages/assets/images/CLI/CLITheMenu.jpg" alt="CLI The Menu">
-                <img src=".githubages/assets/images/CLI/CLISignUp.jpg" alt="CLI Sign Up">
-                <img src=".githubages/assets/images/CLI/CLISuccessfullLogin.jpg" alt="CLI Successful Login">
-                <img src=".githubages/assets/images/CLI/CLIAfterLogin.jpg" alt="CLI After Login">
-                <img src=".githubages/assets/images/CLI/CLINewPassword.jpg" alt="CLI New Password">
-                <img src=".githubages/assets/images/CLI/CLIShowPasswords.jpg" alt="CLI Show Passwords">
-                <img src=".githubages/assets/images/CLI/CLIShowPasswordByPlatform.jpg"
-                    alt="CLI Show Password By Platform">
+                <img src=".githubages/assets/images/CLI/CLITheMenu.jpg" alt="CLI The Menu" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/CLI/CLISignUp.jpg" alt="CLI Sign Up" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/CLI/CLISuccessfullLogin.jpg" alt="CLI Successful Login" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/CLI/CLIAfterLogin.jpg" alt="CLI After Login" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/CLI/CLINewPassword.jpg" alt="CLI New Password" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/CLI/CLIShowPasswords.jpg" alt="CLI Show Passwords" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/CLI/CLIShowPasswordByPlatform.jpg" alt="CLI Show Password By Platform" class="shadow-md rounded-md hover:shadow-xl">
             </div>
         </section>
-
         <section id="gui" class="space-y-4">
-            <h2 class="text-2xl">GUI In action</h2>
+            <h2 class="text-2xl text-white">GUI In action</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <img src=".githubages/assets/images/GUI/SignUp.jpg" alt="GUI Sign Up">
-                <img src=".githubages/assets/images/GUI/RegisterSuccess.jpg" alt="GUI Register Success">
-                <img src=".githubages/assets/images/GUI/NewUser.jpg" alt="GUI New User">
-                <img src=".githubages/assets/images/GUI/ErrorExample.jpg" alt="GUI Error Example">
-                <img src=".githubages/assets/images/GUI/MongoPass.jpg" alt="GUI MongoPass">
-                <img src=".githubages/assets/images/GUI/AddPassword.jpg" alt="GUI Add Password">
+
+                <img src=".githubages/assets/images/GUI/SignUp.jpg" alt="GUI Sign Up" class="shadow-md rounded-md hover:shadow-xl">
+                       <img src=".githubages/assets/images/GUI/RegisterSuccess.jpg" alt="GUI Register Success" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/GUI/NewUser.jpg" alt="GUI New User" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/GUI/ErrorExample.jpg" alt="GUI Error Example" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/GUI/MongoPass.jpg" alt="GUI MongoPass" class="shadow-md rounded-md hover:shadow-xl">
+                <img src=".githubages/assets/images/GUI/AddPassword.jpg" alt="GUI MongoPass Enter" class="shadow-md rounded-md hover:shadow-xl">
             </div>
         </section>
-        <!-- Setup Section -->
-        <section id="setup" class="space-y-4">
-            <h2 class="text-2xl">Setup</h2>
-            <p>Here you can find the necessary steps to set up the app on your own machine.</p>
-            <a href="https://github.com/miguelgargallo/MongoPass" target="_blank"
-                class="text-green-600 hover:underline">Setup guide on GitHub</a>
+        <section id="setup">
+            <h2 class="text-2xl text-white">Setup</h2>
+            <p class="text-white">Get instructions on how to setup by visiting the GitHub page</p>
         </section>
-
-        <!-- License Section -->
-        <section id="license" class="space-y-4">
-            <h2 class="text-2xl">License</h2>
-            <p>This project is licensed under the MIT License.</p>
-            <a href="https://github.com/miguelgargallo/MongoPass/blob/main/LICENSE" target="_blank"
-                class="text-green-600 hover:underline">View the full license on GitHub</a>
+        <section id="license">
+            <h2 class="text-2xl text-white">License</h2>
+            <p class="text-white">For license details, visit the GitHub page</p>
         </section>
     </div>
-
     <script>
         const mobileNavDrawer = document.getElementById('mobileNavDrawer');
-        document.getElementById('navToggle').addEventListener('click', function () {
+        document.getElementById('navToggle').addEventListener('click', function() {
             mobileNavDrawer.classList.toggle('translate-x-full');
         });
-        document.getElementById('closeNavDrawer').addEventListener('click', function () {
+        document.getElementById('closeNavDrawer').addEventListener('click', function() {
             mobileNavDrawer.classList.toggle('translate-x-full');
         });
     </script>
 </body>
-
 </html>
