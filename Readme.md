@@ -1,6 +1,10 @@
 # This is Mongo with Python app called MongoPass
 
+## The MongoPass CLI app
 ![MongoPass Screenshot](.repoassets/screenshot.png)
+
+## At Compass
+![Alt text](.repoassets/screenshot_compass.png)
 
 ## First step, the .env
 
