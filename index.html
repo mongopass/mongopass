@@ -12,187 +12,89 @@
     <meta property="og:url" content="https://mongopass.pencil.li" />
     <meta property="og:type" content="website" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #A6A385;
-            color: #00684A;
-            font-family: Arial, sans-serif;
-        }
-
-        nav {
-            background-color: #00684A;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 10px 0;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s;
-        }
-
-        nav a {
-            color: #A6A385;
-        }
-
-        nav a:hover {
-            color: white;
-        }
-
-        .content {
-            margin-top: 80px;
-        }
-
-        .terminal {
-            background-color: #1E1E1E;
-            color: #A6A385;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.5s;
-        }
-
-        .terminal:hover {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .terminal-content {
-            height: 200px;
-            overflow-y: auto;
-            padding: 10px;
-            border-bottom: 1px solid #00684A;
-        }
-
-        .nav-link {
-            color: #58AA50;
-            opacity: 0.8;
-        }
-
-        .nav-link:hover {
-            color: #58AA50;
-            opacity: 1;
-            border-bottom: 1px solid #58AA50;
-            font-weight: bold;
-        }
-
-        .terminal-input {
-            width: 100%;
-            border: none;
-            padding: 10px;
-            background-color: transparent;
-            color: #A6A385;
-            outline: none;
-            font-family: 'Courier New', monospace;
-        }
-    </style>
+    <!-- TailwindCSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-green-200 text-gray-900 font-sans">
+
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">MongoPass</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#cli">CLI</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#compass">Compass</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#setup">Setup</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#license">License</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/miguelgargallo/MongoPass"
-                            target="_blank">GitHub</a>
-                    </li>
-                </ul>
+    <nav class="bg-green-700 p-4 shadow-md flex w-full text-white fixed top-0 left-0 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">MongoPass</a>
+            <div class="space-x-4">
+                <a href="#home" class="hover:text-gray-200">Home</a>
+                <a href="#cli" class="hover:text-gray-200">CLI</a>
+                <a href="#compass" class="hover:text-gray-200">Compass</a>
+                <a href="#setup" class="hover:text-gray-200">Setup</a>
+                <a href="#license" class="hover:text-gray-200">License</a>
+                <a href="https://github.com/miguelgargallo/MongoPass" target="_blank"
+                    class="hover:text-gray-200">GitHub</a>
             </div>
         </div>
     </nav>
 
-    <div class="container content">
-        <div class="row mb-4">
-            <div class="col-md-12 text-center">
-                <img src=".repoassets/BannerApp.png" alt="MongoPass Banner" class="img-fluid">
-            </div>
+    <div class="container mx-auto mt-24 p-4 space-y-8">
+
+        <!-- Banner -->
+        <div class="text-center">
+            <img src=".repoassets/BannerApp.png" alt="MongoPass Banner" class="mx-auto">
         </div>
 
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <h1>This is Mongo with Python app called MongoPass</h1>
-            </div>
-        </div>
+        <h1 class="text-3xl">This is Mongo with Python app called MongoPass</h1>
 
-        <div class="row mb-4" id="cli">
-            <div class="col-md-12">
-                <h2>The MongoPass CLI</h2>
-                <div class="terminal">
-                    <div class="terminal-content" id="terminal-content"></div>
-                    <input type="text" class="terminal-input" id="terminal-input" autofocus />
-                </div>
+        <!-- CLI Section -->
+        <section id="cli" class="space-y-4">
+            <h2 class="text-2xl">The MongoPass CLI</h2>
+            <div class="terminal bg-gray-900 text-green-400 p-4 rounded shadow-lg">
+                <div class="terminal-content mb-2 overflow-y-auto h-48" id="terminal-content"></div>
+                <input type="text" class="terminal-input w-full p-2 bg-gray-800 rounded text-white" id="terminal-input"
+                    autofocus />
             </div>
-        </div>
+        </section>
 
-        <div class="row mb-4" id="compass">
-            <div class="col-md-12">
-                <h2>At Compass</h2>
-                <img src=".repoassets/screenshot_compass.png" alt="Compass Screenshot" class="img-fluid">
-            </div>
-        </div>
+        <!-- Compass Section -->
+        <section id="compass">
+            <h2 class="text-2xl">At Compass</h2>
+            <img src=".repoassets/screenshot_compass.png" alt="Compass Screenshot"
+                class="mx-auto w-full rounded shadow-md">
+        </section>
 
-        <div class="row mb-4" id="setup">
-            <div class="col-md-12">
-                <h2>First step, the .env</h2>
-                <p>Please copy the <code>.env.example</code> file to <code>.env</code> and fill the variables with your
-                    own values.
-                </p>
-                <pre>
+        <!-- Setup Section -->
+        <section id="setup" class="space-y-4">
+            <h2 class="text-2xl">First step, the .env</h2>
+            <p class="text-gray-700">Please copy the <code>.env.example</code> file to <code>.env</code> and fill the
+                variables with your own values.</p>
+            <pre class="bg-gray-200 p-4 rounded">
 cp .env.example .env
 </pre>
-                <h2>To run the app</h2>
-                <pre>
+            <h2 class="text-2xl mt-4">To run the app</h2>
+            <pre class="bg-gray-200 p-4 rounded">
 python -m venv venv
 source ./venv/Scripts/activate
 pip install pymongo bcrypt python-decouple
 python ./do.py
 deactivate
 </pre>
-            </div>
-        </div>
+        </section>
 
-        <div class="row mb-4" id="license">
-            <div class="col-md-3">
-                <img src=".repoassets/IconApp.png" alt="MongoPass Banner" class="img-fluid">
+        <!-- License Section -->
+        <section id="license" class="flex space-x-8 items-center">
+            <div class="flex-shrink-0">
+                <img src=".repoassets/IconApp.png" alt="MongoPass Banner" class="rounded-full shadow-md">
             </div>
-            <div class="col-md-9">
-                <h2>Pylar AI Creative ML Free License</h2>
-                <p>This project is licensed under the <a href="LICENSE.md">Pylar AI Creative ML Free License</a>. For
-                    further details about this license, please visit the <a
-                        href="https://huggingface.co/spaces/superdatas/free-license">official source
-                        HuggingFace/superdatas</a>.
-                </p>
+            <div>
+                <h2 class="text-2xl">Pylar AI Creative ML Free License</h2>
+                <p class="text-gray-700">This project is licensed under the <a href="LICENSE.md"
+                        class="text-green-700 hover:underline">Pylar AI Creative ML Free License</a>. For further
+                    details about this license, please visit the <a
+                        href="https://huggingface.co/spaces/superdatas/free-license"
+                        class="text-green-700 hover:underline">official source HuggingFace/superdatas</a>.</p>
             </div>
-        </div>
+        </section>
+
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- CLI JS -->
     <script src="./.repoassets/cli.js" defer></script>
 </body>
 
