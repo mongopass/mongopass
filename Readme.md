@@ -4,6 +4,10 @@
 
 # This is Mongo with Python app called MongoPass
 
+<div align="center">
+    <img src=".githubages/assets/images/Marketing/MongoPass_Screenshot.jpg" alt="MongoPass Banner">
+</div>
+
 ## At Compass
 
 ![CompassAfterAddAPassword](.githubages/assets/images/Compass/CompassAfterAddAPassword.jpg)
