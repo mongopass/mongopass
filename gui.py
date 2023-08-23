@@ -6,8 +6,8 @@ from decouple import config
 from urllib.parse import urlparse
 
 # Database setup
-MONGODB_URI_DEV = config('MONGODB_URI_DEV')
-client = pymongo.MongoClient(MONGODB_URI_DEV)
+MONGODB_URI = config('MONGODB_URI')
+client = pymongo.MongoClient(MONGODB_URI)
 db = client.passwords_db
 app_users = db.app_users
 passwords = db.passwords
@@ -154,13 +154,12 @@ entry_frame.columnconfigure(1, weight=1)
 button_frame = ttk.Frame(password_manager_frame)
 button_frame.pack(pady=10, fill=tk.X, padx=10)
 add_button = ttk.Button(button_frame, text="Add", command=add_password)
-add_button.grid(row=0, column=0, padx=5, pady=5)
+add_button.pack(side="left", padx=5)
 edit_button = ttk.Button(button_frame, text="Edit", command=edit_password)
-edit_button.grid(row=0, column=1, padx=5, pady=5)
+edit_button.pack(side="left", padx=5)
 delete_button = ttk.Button(button_frame, text="Delete", command=delete_password)
-delete_button.grid(row=0, column=2, padx=5, pady=5)
+delete_button.pack(side="left", padx=5)
 logout_button = ttk.Button(button_frame, text="Logout", command=logout)
-logout_button.grid(row=0, column=3, padx=5, pady=5)
+logout_button.pack(side="right", padx=5)
 
 app.mainloop()
-
