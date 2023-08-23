@@ -58,6 +58,8 @@ deactivate
 ## To run the app
 
 ```
+python -m venv venv
+
 source ./venv/Scripts/activate
 python ./gui.py
 ```
