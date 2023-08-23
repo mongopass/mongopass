@@ -5,8 +5,9 @@ import bcrypt
 from decouple import config
 from urllib.parse import urlparse
 
-MONGODB_URI = config('MONGODB_URI')
-client = pymongo.MongoClient(MONGODB_URI)
+# Database setup
+MONGODB_URI_DEV = config('MONGODB_URI_DEV')
+client = pymongo.MongoClient(MONGODB_URI_DEV)
 db = client.passwords_db
 app_users = db.app_users
 passwords = db.passwords
@@ -26,7 +27,7 @@ def register():
     app_users.insert_one({"username": username, "password": hashed})
     messagebox.showinfo("Success", "Registration successful!")
 
-def login():
+def login(event=None):
     global current_user_id
     username = entry_username.get()
     password = entry_password.get()
@@ -40,32 +41,60 @@ def login():
     display_passwords()
 
 def add_password():
-    platform_link = simpledialog.askstring("Platform Link", "Enter platform link (e.g., https://github.com):")
-    if not platform_link:
-        return
-    platform_name = urlparse(platform_link).netloc.split('.')[0]
-    platform_username = simpledialog.askstring("Platform Username", "Enter username:")
-    platform_password = simpledialog.askstring("Platform Password", "Enter password:", show="*")
-    tags = simpledialog.askstring("Tags", "Enter comma-separated tags (up to 3):").split(",")[:3]
+    platform_link = entry_platform_link.get()
+    platform_name = urlparse(platform_link).netloc.split('.')[-2]
+    platform_username = entry_platform_username.get()
+    platform_password = entry_platform_password.get()
+    tags = entry_tags.get().split(",")[:3]
     passwords.insert_one({
         "platform": platform_name,
         "link": platform_link,
         "username": platform_username,
         "password": platform_password,
-        "tags": tags,
-        "user_id": current_user_id
+        "tags": tags
     })
+    entry_platform_link.delete(0, tk.END)
+    entry_platform_username.delete(0, tk.END)
+    entry_platform_password.delete(0, tk.END)
+    entry_tags.delete(0, tk.END)
     display_passwords()
 
+def edit_password():
+    selected_item = password_table.selection()
+    if not selected_item:
+        messagebox.showwarning("Warning", "Select an entry to edit!")
+        return
+    password_entry = passwords.find_one({"_id": selected_item[0]})
+    if not password_entry:
+        messagebox.showerror("Error", "Entry not found!")
+        return
+    entry_platform_link.insert(0, password_entry['link'])
+    entry_platform_username.insert(0, password_entry['username'])
+    entry_platform_password.insert(0, password_entry['password'])
+    entry_tags.insert(0, ','.join(password_entry['tags']))
+    passwords.delete_one({"_id": selected_item[0]})
+    display_passwords()
+
+def delete_password():
+    selected_item = password_table.selection()
+    if not selected_item:
+        messagebox.showwarning("Warning", "Select an entry to delete!")
+        return
+    confirm = messagebox.askyesno("Confirmation", "Are you sure you want to delete this entry?")
+    if confirm:
+        passwords.delete_one({"_id": selected_item[0]})
+        display_passwords()
+
 def display_passwords():
-    for record in password_table.get_children():
-        password_table.delete(record)
-    for pwd in passwords.find({"user_id": current_user_id}):
-        password_table.insert("", "end", values=(pwd["platform"], pwd["username"], "******", ",".join(pwd["tags"])), tags=('password', pwd["password"]))
+    password_table.delete(*password_table.get_children())
+    for password_entry in passwords.find({"user_id": current_user_id}):
+        password_table.insert('', 'end', iid=password_entry['_id'], values=(password_entry['platform'], password_entry['username'], '•' * len(password_entry['password']), ','.join(password_entry['tags'])))
 
 def show_password(event):
-    item = password_table.identify('item', event.x, event.y)
-    password = password_table.item(item, "tags")[1]
+    selected_item = password_table.selection()
+    if not selected_item:
+        return
+    password = passwords.find_one({"_id": selected_item[0]})['password']
     messagebox.showinfo("Password", f"Password: {password}")
 
 def logout():
@@ -93,6 +122,7 @@ entry_password = ttk.Entry(login_frame, show="*")
 entry_password.grid(row=1, column=1, pady=5, padx=5)
 ttk.Button(login_frame, text="Login", command=login).grid(row=2, column=0, pady=10, padx=5, sticky='e')
 ttk.Button(login_frame, text="Sign Up", command=register).grid(row=2, column=1, pady=10, padx=5, sticky='w')
+entry_password.bind('<Return>', login)
 
 password_manager_frame = ttk.Frame(app)
 search_bar = ttk.Entry(password_manager_frame)
@@ -104,11 +134,33 @@ password_table.heading("Password", text="Password")
 password_table.heading("Tags", text="Tags")
 password_table.tag_bind('password', '<Double-1>', show_password)
 password_table.pack(pady=20, fill=tk.BOTH, expand=True, padx=10)
+
+entry_frame = ttk.Frame(password_manager_frame)
+entry_frame.pack(pady=10, fill=tk.X, padx=10)
+ttk.Label(entry_frame, text="Link:").grid(row=0, column=0)
+entry_platform_link = ttk.Entry(entry_frame)
+entry_platform_link.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
+ttk.Label(entry_frame, text="Username:").grid(row=1, column=0)
+entry_platform_username = ttk.Entry(entry_frame)
+entry_platform_username.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
+ttk.Label(entry_frame, text="Password:").grid(row=2, column=0)
+entry_platform_password = ttk.Entry(entry_frame, show="*")
+entry_platform_password.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
+ttk.Label(entry_frame, text="Tags:").grid(row=3, column=0)
+entry_tags = ttk.Entry(entry_frame)
+entry_tags.grid(row=3, column=1, padx=5, pady=5, sticky='ew')
+entry_frame.columnconfigure(1, weight=1)
+
 button_frame = ttk.Frame(password_manager_frame)
 button_frame.pack(pady=10, fill=tk.X, padx=10)
-add_button = ttk.Button(button_frame, text="+", command=add_password)
-add_button.pack(side="left")
+add_button = ttk.Button(button_frame, text="Add", command=add_password)
+add_button.grid(row=0, column=0, padx=5, pady=5)
+edit_button = ttk.Button(button_frame, text="Edit", command=edit_password)
+edit_button.grid(row=0, column=1, padx=5, pady=5)
+delete_button = ttk.Button(button_frame, text="Delete", command=delete_password)
+delete_button.grid(row=0, column=2, padx=5, pady=5)
 logout_button = ttk.Button(button_frame, text="Logout", command=logout)
-logout_button.pack(side="right")
+logout_button.grid(row=0, column=3, padx=5, pady=5)
 
 app.mainloop()
+

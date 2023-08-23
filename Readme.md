@@ -51,7 +51,7 @@ python ./gui.py
 deactivate
 ```
 
-## To run the app
+## To run the app, if started and quit avoid the first step
 
 ```
 python -m venv venv

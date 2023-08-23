@@ -4,3 +4,4 @@ venv
 Release
 Release.zip
 launcher
+.env.dev
